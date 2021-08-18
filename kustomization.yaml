@@ -1,0 +1,15 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+
+namespace: wikijs
+commonLabels:
+  app: wikijs
+
+generatorOptions:
+  labels:
+    apps: wikijs
+
+secretGenerator:
+  - name: wikijs-db-password
+    type: Opaque

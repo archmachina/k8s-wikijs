@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wikijs-svc
+  namespace: wikijs
+  labels:
+    app: wikijs
+    comp: wikijs
+spec:
+  selector:
+    app: wikijs
+    comp: wikijs
+  type: ClusterIP
+  ports:
+    - name: tcp-80
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+    - name: tcp-443
+      protocol: TCP
+      port: 443
+      targetPort: 3443

@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: wikijs
+  name: wikijs-dp
+  labels:
+    app: wikijs
+    comp: wikijs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wikijs
+      comp: wikijs
+  template:
+    metadata:
+      labels:
+        app: wikijs
+        comp: wikijs
+    spec:
+      containers:
+        - name: wikijs
+          image: requarks/wiki:2.5
+          env:
+            - name: HA_ACTIVE
+              value: "true"
+            - name: DB_TYPE
+              value: "postgres"
+            - name: DB_HOST
+              value: "wikijs-db-svc"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: wikijs-db-password
+                  key: username
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: wikijs-db-password
+                  key: password
+            - name: DB_NAME
+              value: "wikijs"
+          ports:
+            - name: tcp-3000
+              containerPort: 3000
+              protocol: "TCP"
+            - name: tcp-3443
+              containerPort: 3443
+              protocol: "TCP"
