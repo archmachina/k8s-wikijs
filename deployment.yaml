@@ -2,22 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: wikijs
   name: wikijs-dp
   labels:
-    app: wikijs
-    comp: wikijs
+    component: wikijs
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wikijs
-      comp: wikijs
+      component: wikijs
   template:
     metadata:
       labels:
-        app: wikijs
-        comp: wikijs
+        component: wikijs
     spec:
       containers:
         - name: wikijs
