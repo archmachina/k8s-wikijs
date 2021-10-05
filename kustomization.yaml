@@ -12,3 +12,11 @@ generatorOptions:
 secretGenerator:
   - name: wikijs-db-password
     type: Opaque
+configMapGenerator:
+  - name: wikijs-locale-files
+    files:
+      - locales.json=config/locales.json
+      - en.json=config/en.json
+  - name: wikijs-config
+    files:
+      - config.yml=config/config.yml

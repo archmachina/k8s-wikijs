@@ -15,10 +15,29 @@ spec:
       labels:
         component: wikijs
     spec:
+      volumes:
+        - name: wikijs-locale-files
+          configMap:
+            name: wikijs-locale-files
+        - name: wikijs-config
+          configMap:
+            name: wikijs-config
       containers:
         - name: wikijs
           image: requarks/wiki:2.5
+          volumeMounts:
+            - name: wikijs-locale-files
+              mountPath: /wiki/data/sideload/locales.json
+              subPath: locales.json
+            - name: wikijs-locale-files
+              mountPath: /wiki/data/sideload/en.json
+              subPath: en.json
+            - name: wikijs-config
+              mountPath: /wiki/config.yml
+              subPath: config.yml
           env:
+            - name: OFFLINE
+              value: "false"
             - name: HA_ACTIVE
               value: "true"
             - name: DB_TYPE
